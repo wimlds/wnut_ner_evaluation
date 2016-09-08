@@ -1,6 +1,10 @@
 """A feature extractor for crfsuite"""
 import crfutils, sys, os, re
 import string
+
+# For postagging:
+from nltk import pos_tag
+
 # Separator of field values.
 separator = '\t'
 templates = []
@@ -88,16 +92,23 @@ def GetOrthographicFeatures(word, goodCap=True):
 def Featurizer(X):
     global DF
     if X:
+        # For postagging:
+        sentence = []
+        for x_ in X:
+            sentence.append(x_['w'])
+        tagged = pos_tag(sentence)
+        
         for t in range(len(X)):
             w = X[t]['w']
             feats = DF.GetDictFeatures(w,t) + GetOrthographicFeatures(w)
+            X[t]['F'].append('POSTAG_NLTK=%s'%(tagged[t][1]))
             for f in feats:
                 X[t]['F'].append('%s'%(f))
 
 def FeatureExtractor(X):
     """apply attribute templates to obtain features (in fact, attributes)"""
     crfutils.apply_templates(X, templates)
-     
+    
     Featurizer(X)
     if X:
         X[0]['F'].append('__BOS__')     # BOS feature
