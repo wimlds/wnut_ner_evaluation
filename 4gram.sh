@@ -43,5 +43,7 @@ eval "${RUN_CMD} > ${TEST_FEAT}.results"
 
 echo "${TEST_FEAT} finish prediction"
 
-cat ${TEST_FEAT}.results | tr '\t' ' ' | perl -ne '{chomp;s/\r//g;print $_,"\n";}' | ${EVAL} > ${TEST_FEAT}.SUMMARY
+cat ${TEST_FEAT}.results | tr '\t' ' ' | perl -ne '{chomp;s/\r//g;print $_,"\n";}' | \
+    perl ngram2token.pl $DATA_DIR/dev 4 |
+    ${EVAL} > ${TEST_FEAT}.SUMMARY
 cat ${TEST_FEAT}.SUMMARY
