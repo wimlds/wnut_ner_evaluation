@@ -1,0 +1,27 @@
+baseline, no lexicon:
+
+processed 11570 tokens with 356 phrases; found: 227 phrases; correct: 123.
+accuracy:  96.06%; precision:  54.19%; recall:  34.55%; FB1:  42.20
+
+baseline, lexicon:
+
+processed 11570 tokens with 356 phrases; found: 243 phrases; correct: 131.
+accuracy:  96.06%; precision:  53.91%; recall:  36.80%; FB1:  43.74
+
+
+
+4gram, no lexicon, eval over 4gram, bundled
+
+processed 51191 tokens with 2025 phrases; found: 632 phrases; correct: 421.
+accuracy:  94.59%; precision:  66.61%; recall:  20.79%; FB1:  31.69
+
+4gram, no lexicon, eval over tokens, bundled
+
+processed 11568 tokens with 356 phrases; found: 110 phrases; correct: 64.
+accuracy:  95.70%; precision:  58.18%; recall:  17.98%; FB1:  27.47
+
+4gram, no lexicon, eval over tokens, separated
+
+processed 11568 tokens with 356 phrases; found: 113 phrases; correct: 71.
+accuracy:  95.71%; precision:  62.83%; recall:  19.94%; FB1:  30.28
+
