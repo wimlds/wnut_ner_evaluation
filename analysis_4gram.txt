@@ -25,3 +25,12 @@ accuracy:  95.70%; precision:  58.18%; recall:  17.98%; FB1:  27.47
 processed 11568 tokens with 356 phrases; found: 113 phrases; correct: 71.
 accuracy:  95.71%; precision:  62.83%; recall:  19.94%; FB1:  30.28
 
+4gram, regular lexicon, eval over tokens, separated
+
+processed 11568 tokens with 356 phrases; found: 99 phrases; correct: 62.
+accuracy:  95.63%; precision:  62.63%; recall:  17.42%; FB1:  27.25
+
+4gram, 4gram lexicon, eval over tokens, separated
+
+processed 11568 tokens with 356 phrases; found: 113 phrases; correct: 71.
+accuracy:  95.71%; precision:  62.83%; recall:  19.94%; FB1:  30.28
