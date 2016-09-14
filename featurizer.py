@@ -83,9 +83,14 @@ def GetOrthographicFeatures(word, goodCap=True):
 def Featurizer(X):
     global DF
     if X:
+        words = []
         for t in range(len(X)):
             w = X[t]['w']
-            feats = DF.GetDictFeatures(w,t) + GetOrthographicFeatures(w)
+            words.append(w)
+        
+        for t in range(len(X)):
+            w = X[t]['w']
+            feats = DF.GetDictFeatures(words,t) + GetOrthographicFeatures(w)
             for f in feats:
                 X[t]['F'].append('%s'%(f))
 

@@ -31,25 +31,19 @@ class DictionaryFeatures:
                 continue
             for line in open(dictDir + "/" + d):
                 word = line.rstrip('\n')
-                word = word.strip(' ').lower()
+                word = word.strip(' ')
                 if not self.word2dictionaries.has_key(word):            
                     self.word2dictionaries[word] = str(i)
                 else:
                     self.word2dictionaries[word] += "\t%s" % i
             i += 1
         
-    MAX_WINDOW_SIZE=6
     def GetDictFeatures(self, words, i):
         features = []
-        for window in range(self.MAX_WINDOW_SIZE):
-            for start in range(max(i-window+1, 0), i+1):
-                end = start + window
-                phrase = ' '.join(words[start:end]).lower().strip(string.punctuation)
-                if self.word2dictionaries.has_key(phrase):
-                    for j in self.word2dictionaries[phrase].split('\t'):
-                        features.append('DICT=%s' % self.dictionaries[int(j)])
-                        if window > 1:
-                            features.append('DICTWIN=%s' % window)
+        phrase = words
+        if self.word2dictionaries.has_key(phrase):
+            for j in self.word2dictionaries[phrase].split('\t'):
+                features.append('DICT=%s' % self.dictionaries[int(j)])
         return list(set(features))
 
 def GetOrthographicFeatures(word, goodCap=True):

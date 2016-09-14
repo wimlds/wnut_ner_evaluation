@@ -26,7 +26,7 @@ cat ${DATA_DIR}/${TRAIN_DATA} | ${FEATURIZER} > ${TRAIN_FEAT}
 echo "***** Running ${FEATURIZER} on ${TRAIN_DATA} (`date`) *****"
 cat ${DATA_DIR}/${TEST_DATA} | ${FEATURIZER}  > ${TEST_FEAT}
 
-TRAIN_OPTS="learn -a ap"
+TRAIN_OPTS="learn -a lbfgs"  # ap
 
 RUN_CMD="${CRF} ${TRAIN_OPTS} -m ${MODEL} ${TRAIN_FEAT}"
 #training
