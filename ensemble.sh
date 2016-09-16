@@ -6,7 +6,7 @@ TRAIN_DATA="train"
 ENSEMBLE_DATA="dev_2015"
 TEST_DATA="dev"
 FEATURIZER="python ./featurizer.py"
-FEATURIZER_NGRAM="python ./featurizer_gram.py"
+FEATURIZER_NGRAM="python ./featurizer_ngram.py"
 FEATURIZER_ENSEMBLE="python ./featurizer_ensemble.py"
 DOVETAILER="perl dovetail.pl"
 CRF="crfsuite"
@@ -132,6 +132,7 @@ TEST_OPTS="tag -r"
 RUN_CMD="${CRF} ${TEST_OPTS} -m ${MODEL} ${TEST_FEAT}"
 eval "${RUN_CMD} > ${TEST_FEAT}.results"
 
-echo "(base) ${TEST_FEAT} finish prediction"
+echo "(ensemble) ${TEST_FEAT} finish prediction"
 
 cat ${TEST_FEAT}.results | tr '\t' ' ' | perl -ne '{chomp;s/\r//g;print $_,"\n";}' | ${EVAL} > ${TEST_FEAT}.SUMMARY
+cat ${TEST_FEAT}.SUMMARY
