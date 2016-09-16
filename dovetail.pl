@@ -23,10 +23,21 @@ foreach my$row(0..(scalar(@{$datasets[0]}) - 1)){
       foreach my$ds(1..$#datasets){
         my$label="O";
         if($datasets[$ds]->[0]->[0]){
-          die "mismatch: $ds $row" unless $datasets[$ds]->[0]->[0] eq $datasets[0]->[$row]->[1];
-          $label=$datasets[$ds]->[0]->[1];
-          shift@{$datasets[$ds]};
-        } # else error recovery
+          #die "mismatch: $ds $row" unless $datasets[$ds]->[0]->[0] eq $datasets[0]->[$row]->[1];
+          if($datasets[$ds]->[0]->[0] eq $datasets[0]->[$row]->[1]){
+	      $label=$datasets[$ds]->[0]->[1];
+	      shift@{$datasets[$ds]};
+	  }else{
+	      # error recovery
+	      while($datasets[$ds]->[0]->[0] && !($datasets[$ds]->[0]->[0] eq $datasets[0]->[$row]->[1])){
+		  shift@{$datasets[$ds]};
+	      }
+	      if($datasets[$ds]->[0]->[0]){
+		  $label=$datasets[$ds]->[0]->[1];
+		  shift@{$datasets[$ds]};
+	      }
+	  }
+	} # else error recovery
         print "$label\t"; 
       }
       print "$base->[1]\n";
