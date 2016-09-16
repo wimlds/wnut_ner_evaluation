@@ -52,8 +52,8 @@ cat ${TEST_FEAT}.results | tr '\t' ' ' | perl -ne '{chomp;s/\r//g;print $_,"\n";
 echo "**** base"
 cat ${TEST_FEAT}.SUMMARY
 
-DOVETAIL_TRAIN_ENSEMBLE="$DOVETAIL_TRAIN_ENSEMBLE $BASE_DIR/${ENSEMBLE_FEAT}.results"
-DOVETAIL_TEST="$DOVETAIL_TEST $BASE_DIR/${TEST_FEAT}.results"
+DOVETAIL_TRAIN_ENSEMBLE="$DOVETAIL_TRAIN_ENSEMBLE ${ENSEMBLE_FEAT}.results"
+DOVETAIL_TEST="$DOVETAIL_TEST ${TEST_FEAT}.results"
 
 for NGRAM in 3 4 5 6 7
 do  
@@ -102,13 +102,14 @@ do
 
     echo "($NGRAM-gram) ${TEST_FEAT} finish prediction"
 
-    cat ${TEST_FEAT}.results | tr '\t' ' ' | perl -ne '{chomp;s/\r//g;print $_,"\n";}' | \
-	${DENGRAMIZER} | ${EVAL} > ${TEST_FEAT}.SUMMARY
+    cat ${ENSEMBLE_FEAT}.results | tr '\t' ' ' | perl -ne '{chomp;s/\r//g;print $_,"\n";}' | ${DENGRAMIZER} > ${ENSEMBLE_FEAT}.results.token
+    cat ${TEST_FEAT}.results | tr '\t' ' ' | perl -ne '{chomp;s/\r//g;print $_,"\n";}' | ${DENGRAMIZER} > ${TEST_FEAT}.results.token
+    cat ${TEST_FEAT}.results.token | ${EVAL} > ${TEST_FEAT}.SUMMARY
     echo "**** $NGRAM-grams:"
     cat ${TEST_FEAT}.SUMMARY
 
-    DOVETAIL_TRAIN_ENSEMBLE="$DOVETAIL_TRAIN_ENSEMBLE $NGRAM_DIR/${ENSEMBLE_FEAT}.results"
-    DOVETAIL_TEST="$DOVETAIL_TEST $NGRAM_DIR/${TEST_FEAT}.results"
+    DOVETAIL_TRAIN_ENSEMBLE="$DOVETAIL_TRAIN_ENSEMBLE ${ENSEMBLE_FEAT}.results.token"
+    DOVETAIL_TEST="$DOVETAIL_TEST ${TEST_FEAT}.results.token"
 done
 
 echo ${DOVETAIL_TRAIN_ENSEMBLE}

@@ -6,7 +6,7 @@ use strict;
 
 my@datasets = ();
 
-foreach my$arg(1..$#ARGV){
+foreach my$arg(0..$#ARGV){
     open(F, $ARGV[$arg]) or die "$ARGV[$arg]: $!";
     my@f=<F>;
     chomp@f;
@@ -14,10 +14,10 @@ foreach my$arg(1..$#ARGV){
 }
 
 foreach my$row(0..(scalar($datasets[0]) - 1)){
-    $base = $datasets[0]->[$row];
+    my$base = $datasets[0]->[$row];
     print "$base->[0]\t";
-    foreach my$ds(1..$#ARGV){
-	die "mismatch: $ds $row" unless $datasets[$ds]->[$row]->[0] eq $datasets[0]->[$row]->[0];
+    foreach my$ds(1..$#datasets){
+	die "mismatch: $ds $row" unless $datasets[$ds]->[$row]->[0] eq $datasets[0]->[$row]->[1];
 	print $datasets[$ds]->[$row]->[1]."\t";
     }
     print "$base->[1]\n";
