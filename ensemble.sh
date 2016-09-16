@@ -58,7 +58,8 @@ DOVETAIL_TEST="$DOVETAIL_TEST ${TEST_FEAT}.results"
 for NGRAM in 3 4 5 6 7
 do  
     NGRAMIZER="perl ./train_to_ngram.pl $NGRAM separate"
-    DENGRAMIZER="perl ngram2token.pl $NGRAM $DATA_DIR/dev"
+    DENGRAMIZER_TEST="perl ngram2token.pl $NGRAM $DATA_DIR/$TEST_DATA"
+    DENGRAMIZER_ENSEMBLE="perl ngram2token.pl $NGRAM $DATA_DIR/$ENSEMBLE_DATA"
 
     # generate training data
     NGRAM_DIR=$OUT_DIR/$NGRAM
@@ -102,8 +103,8 @@ do
 
     echo "($NGRAM-gram) ${TEST_FEAT} finish prediction"
 
-    cat ${ENSEMBLE_FEAT}.results | tr '\t' ' ' | perl -ne '{chomp;s/\r//g;print $_,"\n";}' | ${DENGRAMIZER} > ${ENSEMBLE_FEAT}.results.token
-    cat ${TEST_FEAT}.results | tr '\t' ' ' | perl -ne '{chomp;s/\r//g;print $_,"\n";}' | ${DENGRAMIZER} > ${TEST_FEAT}.results.token
+    cat ${ENSEMBLE_FEAT}.results | tr '\t' ' ' | perl -ne '{chomp;s/\r//g;print $_,"\n";}' | ${DENGRAMIZER_ENSEMBLE} > ${ENSEMBLE_FEAT}.results.token
+    cat ${TEST_FEAT}.results | tr '\t' ' ' | perl -ne '{chomp;s/\r//g;print $_,"\n";}' | ${DENGRAMIZER_TEST} > ${TEST_FEAT}.results.token
     cat ${TEST_FEAT}.results.token | ${EVAL} > ${TEST_FEAT}.SUMMARY
     echo "**** $NGRAM-grams:"
     cat ${TEST_FEAT}.SUMMARY
