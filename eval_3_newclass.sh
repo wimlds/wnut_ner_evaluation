@@ -1,12 +1,12 @@
 #!/bin/bash
 
-FLAG=$1
+FLAG=gensim-postag
 
 DATA_DIR="./data/"
-OUT_DIR="./result/${FLAG}"
+OUT_DIR="./result_sim/${FLAG}"
 
-TRAIN_DATA="eval_3_train_newclass"
-TEST_DATA="eval_3_dev_newclass"
+TRAIN_DATA="train"
+TEST_DATA="dev"
 #TRAIN_DATA="train_notype"
 #TEST_DATA="dev_notype"
 TRAIN_FEAT=${OUT_DIR}/${TRAIN_DATA}.feats
@@ -14,8 +14,8 @@ TEST_FEAT=${OUT_DIR}/${TEST_DATA}.feats
 
 MODEL=${OUT_DIR}/${TRAIN_DATA}.model
 
-FEATURIZER="python ./eval_3_newclass_featurizer.py"
-CRF="crfsuite"
+FEATURIZER="python eval_3_newclass_featurizer.py"
+CRF="../../crfsuite-0.12/bin/crfsuite"
 EVAL="perl connlleval.pl"
 
 mkdir -p ${OUT_DIR}

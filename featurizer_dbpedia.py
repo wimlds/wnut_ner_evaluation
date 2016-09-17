@@ -98,7 +98,7 @@ def GetOrthographicFeatures(word, goodCap=True):
     return features
 
 
-def GetWikipediaFeatures(text, confidence=0.35):
+def GetWikipediaFeatures(text, confidence=0.5):
     if isinstance(confidence, float):
         confidence = str(confidence)
     headers = {'Accept': 'application/json'}
