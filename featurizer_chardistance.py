@@ -39,22 +39,10 @@ class DictionaryFeatures:
         self.dictionaries = []
         self.corpus = load(open(path_to_models + '.nc', 'rb'))
         
-        #i = 0
-        #for d in os.listdir(dictDir):
-            #print("read dict %s"%d, file=sys.stderr)
-            #self.dictionaries.append(d)
-            #if d == '.svn':
-                #continue
-            #for line in open(dictDir + "/" + d):
-                #word = line.rstrip('\n')
-                #word = word.strip(' ').lower()
-                #try: 
-                    #self.word2dictionaries.get(word)
-                    #self.word2dictionaries[word] = str(i)
-                #except KeyError:
-                    #self.word2dictionaries[word] += "\t%s" % i
-            #i += 1
-    
+        # Load ngram models for matching:
+        self.tfidf = TfidfModel.load(path_to_models + '.tfidf')
+        self.index = Similarity.load(path_to_models + '.sim')
+
     def ngrams(self, phrase):
         n = self.corpus.n
         ngs = []
@@ -67,9 +55,8 @@ class DictionaryFeatures:
     def GetDictFeatures(self, words, i):
         features = []
         
-        # Load ngram models for matching:
-        tfidf = TfidfModel.load(path_to_models + '.tfidf')
-        index = Similarity.load(path_to_models + '.sim')
+        tfidf = self.tfidf
+        index = self.index
         
         #import ipdb; ipdb.set_trace()
         #for window in range(self.MAX_WINDOW_SIZE):
@@ -123,7 +110,7 @@ def GetOrthographicFeatures(word, goodCap=True):
     return features
 
 
-def GetWikipediaFeatures(text, confidence=0.4):
+def GetWikipediaFeatures(text, confidence=0.3):
     if isinstance(confidence, float):
         confidence = str(confidence)
     headers = {'Accept': 'application/json'}
