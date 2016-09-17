@@ -4,7 +4,7 @@ import string
 # Separator of field values.
 separator = '\t'
 templates = []
-fields = 'w 3gram 4gram 5gram 6gram 7gram y'
+fields = 'w base 3gram 4gram 5gram 6gram 7gram y'
 
 templates = (
     (('3gram', 0), ('4gram', 0),),
@@ -32,6 +32,9 @@ templates = (
     (('7gram', -1), ),
     (('7gram', 0), ),
     (('7gram', -1), ('7gram', 0)),
+    (('base', 0), ),
+    (('base', -1), ),
+    (('base', 0), ('base', -1),),
     (('w', -1), ),
     (('w',  0), ),
     (('w', -1), ('w',  0)), 
