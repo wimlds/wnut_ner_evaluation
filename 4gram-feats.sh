@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FLAG=4gram-feats
+FLAG=dbpedia-ngram-dic
 
 DATA_DIR="./data/"
 OUT_DIR="./result/${FLAG}"
@@ -13,7 +13,7 @@ TEST_FEAT=${OUT_DIR}/${TEST_DATA}.feats
 
 MODEL=${OUT_DIR}/${TRAIN_DATA}.model
 
-FEATURIZER="python ./featurizer_4gram.py"
+FEATURIZER="python ./featurizer_chardistance.py"
 CRF="crfsuite"
 EVAL="perl connlleval.pl"
 
