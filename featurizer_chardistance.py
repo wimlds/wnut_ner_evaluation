@@ -69,7 +69,7 @@ class DictionaryFeatures:
         bow = self.corpus.dic.doc2bow(ngs)
         tfidf_bow = tfidf[bow]
         sim = index[tfidf_bow]
-        sim = [s for s in sim if s[1] >= 0.002]
+        sim = [s for s in sim if s[1] >= 0.01]
         if len(sim) > 0:
             for j, s in enumerate(sim):
                 lexicon_name = self.corpus.doc_names[s[0]]
