@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FLAG=4gram-feats
+FLAG=dbpedia-ngram-dic
 
 DATA_DIR="./data/"
 OUT_DIR="./result/${FLAG}"
@@ -13,8 +13,8 @@ TEST_FEAT=${OUT_DIR}/${TEST_DATA}.feats
 
 MODEL=${OUT_DIR}/${TRAIN_DATA}.model
 
-FEATURIZER="python ./featurizer_4gram.py"
-CRF="crfsuite"
+FEATURIZER="python ./featurizer_chardistance.py"
+CRF="../../crfsuite-0.12/bin/crfsuite"
 EVAL="perl connlleval.pl"
 
 mkdir -p ${OUT_DIR}
@@ -22,7 +22,7 @@ mkdir -p ${OUT_DIR}
 echo "***** Running ${FEATURIZER} on ${TRAIN_DATA} (`date`) *****"
 cat ${DATA_DIR}/${TRAIN_DATA} | ${FEATURIZER} > ${TRAIN_FEAT}
 
-echo "***** Running ${FEATURIZER} on ${TRAIN_DATA} (`date`) *****"
+echo "***** Running ${FEATURIZER} on ${TEST_DATA} (`date`) *****"
 cat ${DATA_DIR}/${TEST_DATA} | ${FEATURIZER}  > ${TEST_FEAT}
 
 TRAIN_OPTS="learn -a ap"

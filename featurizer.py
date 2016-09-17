@@ -78,6 +78,9 @@ def GetOrthographicFeatures(word, goodCap=True):
         features.append('HASDASH')
     if re.match(r'[.,;:?!-+\'"]', word):
         features.append('PUNCTUATION')
+    if re.match(r'[a-z]', word):
+        features.append('ALL_LOWERCASE')
+    features.append('LEN=' + str(len(word)))
     return features
 
 def Featurizer(X):
