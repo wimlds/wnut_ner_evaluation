@@ -1,0 +1,72 @@
+baseline, no lexicon:
+
+processed 11570 tokens with 356 phrases; found: 227 phrases; correct: 123.
+accuracy:  96.06%; precision:  54.19%; recall:  34.55%; FB1:  42.20
+
+baseline, lexicon, fixed featurizer:
+
+processed 11570 tokens with 356 phrases; found: 276 phrases; correct: 160.
+accuracy:  96.51%; precision:  57.97%; recall:  44.94%; FB1:  50.63
+
+4gram, no lexicon, eval over 4gram, bundled
+
+processed 51191 tokens with 2025 phrases; found: 632 phrases; correct: 421.
+accuracy:  94.59%; precision:  66.61%; recall:  20.79%; FB1:  31.69
+
+4gram, no lexicon, eval over tokens, bundled
+
+processed 11568 tokens with 356 phrases; found: 110 phrases; correct: 64.
+accuracy:  95.70%; precision:  58.18%; recall:  17.98%; FB1:  27.47
+
+4gram, no lexicon, eval over tokens, separated
+
+processed 11568 tokens with 356 phrases; found: 113 phrases; correct: 71.
+accuracy:  95.71%; precision:  62.83%; recall:  19.94%; FB1:  30.28
+
+4gram, 4gram unigram lexicon, eval over tokens, separated
+
+processed 11568 tokens with 356 phrases; found: 105 phrases; correct: 59.
+accuracy:  95.57%; precision:  56.19%; recall:  16.57%; FB1:  25.60
+
+4gram, 4gram full lexicon, eval over tokens, separated
+
+processed 11568 tokens with 356 phrases; found: 109 phrases; correct: 69.
+accuracy:  95.71%; precision:  63.30%; recall:  19.38%; FB1:  29.68
+
+4gram, 4gram full lexicon, eval over tokens, separated, L-BFGS
+
+processed 11568 tokens with 356 phrases; found: 54 phrases; correct: 45.
+accuracy:  95.50%; precision:  83.33%; recall:  12.64%; FB1:  21.95
+
+
+
+---------- wrong featurizer ----------------------
+
+baseline, lexicon:
+
+processed 11570 tokens with 356 phrases; found: 243 phrases; correct: 131.
+accuracy:  96.06%; precision:  53.91%; recall:  36.80%; FB1:  43.74
+
+
+
+
+
+4gram, regular lexicon, eval over tokens, separated
+
+processed 11568 tokens with 356 phrases; found: 99 phrases; correct: 62.
+accuracy:  95.63%; precision:  62.63%; recall:  17.42%; FB1:  27.25
+
+4gram, 4gram lexicon, eval over tokens, separated
+
+processed 11568 tokens with 356 phrases; found: 113 phrases; correct: 71.
+accuracy:  95.71%; precision:  62.83%; recall:  19.94%; FB1:  30.28
+
+4gram, 4gram bigram lexicon, eval over tokens, separated
+
+processed 11568 tokens with 356 phrases; found: 113 phrases; correct: 71.
+accuracy:  95.71%; precision:  62.83%; recall:  19.94%; FB1:  30.28
+
+4gram, 4gram unigram lexicon, eval over tokens, separated, 4gram features
+
+processed 11568 tokens with 356 phrases; found: 122 phrases; correct: 68.
+accuracy:  95.74%; precision:  55.74%; recall:  19.10%; FB1:  28.45

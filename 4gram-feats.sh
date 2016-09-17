@@ -6,8 +6,8 @@ DATA_DIR="./data/"
 OUT_DIR="./result/${FLAG}"
 mkdir -p $OUT_DIR
 
-TRAIN_DATA="train_4gram"
-TEST_DATA="dev_4gram"
+TRAIN_DATA="train_4gram_sep"
+TEST_DATA="dev_4gram_sep"
 TRAIN_FEAT=${OUT_DIR}/${TRAIN_DATA}.feats
 TEST_FEAT=${OUT_DIR}/${TEST_DATA}.feats
 
@@ -43,5 +43,5 @@ eval "${RUN_CMD} > ${TEST_FEAT}.results"
 
 echo "${TEST_FEAT} finish prediction"
 
-cat ${TEST_FEAT}.results | tr '\t' ' ' | perl -ne '{chomp;s/\r//g;print $_,"\n";}' | ${EVAL} > ${TEST_FEAT}.SUMMARY
+cat ${TEST_FEAT}.results | tr '\t' ' ' | perl -ne '{chomp;s/\r//g;print $_,"\n";}' | perl ngram2token.pl 4 $DATA_DIR/dev | ${EVAL} > ${TEST_FEAT}.SUMMARY
 cat ${TEST_FEAT}.SUMMARY

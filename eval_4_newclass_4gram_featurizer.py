@@ -78,22 +78,14 @@ def GetOrthographicFeatures(word, goodCap=True):
         features.append('HASDASH')
     if re.match(r'[.,;:?!-+\'"]', word):
         features.append('PUNCTUATION')
-    if re.match(r'[a-z]', word):
-        features.append('ALL_LOWERCASE')
-    features.append('LEN=' + str(len(word)))
     return features
 
 def Featurizer(X):
     global DF
     if X:
-        words = []
         for t in range(len(X)):
             w = X[t]['w']
-            words.append(w)
-        
-        for t in range(len(X)):
-            w = X[t]['w']
-            feats = DF.GetDictFeatures(words,t) + GetOrthographicFeatures(w)
+            feats = DF.GetDictFeatures(w,t) + GetOrthographicFeatures(w)
             for f in feats:
                 X[t]['F'].append('%s'%(f))
 

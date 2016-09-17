@@ -1,14 +1,14 @@
 
 #!/bin/bash
 
-FLAG=4gram
+FLAG=4gram-sep
 
 DATA_DIR="./data/"
 OUT_DIR="./result/${FLAG}"
 mkdir -p $OUT_DIR
 
-TRAIN_DATA="train_4gram"
-TEST_DATA="dev_4gram"
+TRAIN_DATA="train_4gram_sep"
+TEST_DATA="dev_4gram_sep"
 TRAIN_FEAT=${OUT_DIR}/${TRAIN_DATA}.feats
 TEST_FEAT=${OUT_DIR}/${TEST_DATA}.feats
 
@@ -26,7 +26,7 @@ cat ${DATA_DIR}/${TRAIN_DATA} | ${FEATURIZER} > ${TRAIN_FEAT}
 echo "***** Running ${FEATURIZER} on ${TRAIN_DATA} (`date`) *****"
 cat ${DATA_DIR}/${TEST_DATA} | ${FEATURIZER}  > ${TEST_FEAT}
 
-TRAIN_OPTS="learn -a ap"
+TRAIN_OPTS="learn -a lbfgs"  # ap
 
 RUN_CMD="${CRF} ${TRAIN_OPTS} -m ${MODEL} ${TRAIN_FEAT}"
 #training
