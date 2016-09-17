@@ -1,4 +1,5 @@
 from gensim.corpora.textcorpus import TextCorpus
+from gensim.corpora import Dictionary
 from os import walk
 from os.path import join
 from nltk import word_tokenize
@@ -7,22 +8,47 @@ from string import punctuation
 
 #diamond museum amsterdam
 
-class CharCorpus:
-    
-    def __init__(self, path, dic):
+
+class NgramCorpus:
+    def __init__(self, path, n):
         self.path = path
-        self.dic = dic
+        self.n = n
+        self.dic = Dictionary()
         self.doc_names = []
 
     def __iter__(self):
-        dic = self.dic
+        for root, dirs, files in walk(self.path):
+            for name in files:
+                self.doc_names.append(name)
+                file_path = join(root, name)
+                f = open(file_path, 'r')
+                text = f.read().lower()
+                text = text.replace(' ', '')
+                text = text.replace('\n', '')
+                ngrams = []
+                for i in range(len(text) - self.n + 1):
+                    ngram = text[i: i + self.n]
+                    ngrams.append(ngram)
+                self.dic.add_documents([ngrams])
+                yield self.dic.doc2bow(ngrams)
+
+
+class CharCorpus:
+    
+    def __init__(self, path):
+        self.path = path
+        self.dic = Dictionary()
+        self.doc_names = []
+
+    def __iter__(self):
         for root, dirs, files in walk(self.path):
             for name in files:
                 self.doc_names.append(name)
                 file_path = join(root, name)
                 f = open(file_path, 'r')
                 text = list(f.read())
-                yield dic.doc2bow(text)
+                self.dic.add_documents([text])
+                yield self.dic.doc2bow(text)
 
 
 class CharCorpusFromDir(TextCorpus):

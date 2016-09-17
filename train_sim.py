@@ -12,7 +12,7 @@ Options:
 """
 from docopt import docopt
 from gensim.similarities.docsim import Similarity
-from gensim.models.lsimodel import LsiModel
+from gensim.models.tfidfmodel import TfidfModel
 from gensim.models.logentropy_model import LogEntropyModel
 from corpus_from_dir import CharCorpus
 from os.path import abspath, dirname
@@ -27,13 +27,13 @@ if __name__ == '__main__':
     filename = opts['-o']
     path = abspath(dirname(filename))
     corpus = pickle.load(open(opts['-c'], 'rb'))
-    dic = corpus.dictionary
+    dic = corpus.dic
     
-    lsi = LsiModel(log_ent[corpus], id2word=dic)
-    lsi.save(filename + '.lsi')
+    tfidf = TfidfModel(corpus)
+    tfidf.save(filename + '.tfidf')
     
     sim = Similarity(path,
-                     lsi[corpus],
-                     num_features=lsi.num_topics,
+                     tfidf[corpus],
+                     num_features=len(dic),
                      num_best=int(opts['-n']))
     sim.save(filename + '.sim')
